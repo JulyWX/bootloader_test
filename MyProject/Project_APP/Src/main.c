@@ -22,6 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "firmware_rw.h"
 
 /* USER CODE END Includes */
 
@@ -54,12 +55,26 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
+uint32_t test_flag2 = 1;
 
+void test_code(void)
+{
+	;
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+/**
+* @brief  App ??????
+* @param  None
+* @retval None
+*/
+void AppInit(void)
+{
+    SCB->VTOR = APP_BASE_ADDRESS;     //SCB->VTOR为Cortex内核的中断向量表的基地址，一般为程序执行的初始地址。例如，在Cortex-M3中，默认的基地址为0x8000000。
+}
+uint8_t test_flag = 0;
 /* USER CODE END 0 */
 
 /**
@@ -75,14 +90,15 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+  // HAL_Init();
 
   /* USER CODE BEGIN Init */
+	AppInit();
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
-  SystemClock_Config();
+  // SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -93,6 +109,8 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+	uint8_t buf[5] = {0, 1, 2, 3, 4};
+	char charbuf[5] = "abcde";
 
   /* USER CODE END 2 */
 
@@ -103,6 +121,18 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		HAL_Delay(1000);
+		
+		
+		if(test_flag == 1)
+		{
+			test_flag = 0;
+			HAL_UART_Transmit_DMA(&huart1, buf, sizeof(buf));
+		}else if(test_flag == 2)
+		{
+			test_flag = 0;
+			HAL_UART_Transmit_IT(&huart1, (uint8_t*)charbuf, sizeof(charbuf));
+		}
   }
   /* USER CODE END 3 */
 }

@@ -18,6 +18,7 @@
 "project_app\stm32f1xx_hal_exti.o"
 "project_app\system_stm32f1xx.o"
 "project_app\startup_stm32f10x_ld.o"
+"project_app\firmware_rw.o"
 --library_type=microlib --strict --scatter "Project_APP\Project_APP.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
