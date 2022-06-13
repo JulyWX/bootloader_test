@@ -55,12 +55,7 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-uint32_t test_flag2 = 1;
 
-void test_code(void)
-{
-	;
-}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
